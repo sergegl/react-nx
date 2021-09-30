@@ -104,6 +104,28 @@
           }
         }
       }
+    },
+    "react-training": {
+      "root": "libs/react-training",
+      "sourceRoot": "libs/react-training/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/react-training/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/react-training"],
+          "options": {
+            "jestConfig": "libs/react-training/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

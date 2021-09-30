@@ -33,6 +33,9 @@
     "complete-guide-e2e": {
       "tags": [],
       "implicitDependencies": ["complete-guide"]
+    },
+    "react-training": {
+      "tags": []
     }
   }
 }
