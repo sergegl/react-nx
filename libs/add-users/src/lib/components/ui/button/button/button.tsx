@@ -6,7 +6,9 @@ export interface ButtonProps {
   type?: 'submit' | 'button';
   children?: ReactNode;
   className?: string;
-  onClick?: (event: React.FormEvent<EventTarget>) => void;
+  onClick?: (
+    event: React.FormEvent<EventTarget> | React.ChangeEvent<HTMLInputElement>
+  ) => void;
 }
 
 export function Button({ type, className, children, onClick }: ButtonProps) {
