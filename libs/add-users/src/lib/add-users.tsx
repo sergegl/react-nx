@@ -15,7 +15,7 @@ export function AddUsers(props: AddUsersProps) {
 
   return (
     <div className={style['app-wrapper']}>
-      <AddUser onUserAdd={userAddHandler} />
+      <AddUser onAddUser={userAddHandler} />
       <UsersList users={usersList} />
     </div>
   );

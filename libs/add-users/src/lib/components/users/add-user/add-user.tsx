@@ -7,7 +7,7 @@ import style from './add-user.module.scss';
 
 /* eslint-disable-next-line */
 export interface AddUserProps {
-  onUserAdd: (data: IUser) => void;
+  onAddUser: (data: IUser) => void;
 }
 
 export function AddUser(props: AddUserProps) {
@@ -37,7 +37,7 @@ export function AddUser(props: AddUserProps) {
       age: Number(enteredAge),
     };
 
-    props.onUserAdd(payload);
+    props.onAddUser(payload);
 
     clearForm();
   };
