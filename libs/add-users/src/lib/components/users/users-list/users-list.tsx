@@ -12,7 +12,7 @@ export function UsersList({ users }: UsersListProps) {
     <Card className={style.users}>
       <ul>
         {users.map((user) => (
-          <li>
+          <li key={user.id}>
             {user.username}, ({user.age} years old)
           </li>
         ))}

@@ -10,12 +10,12 @@ export interface AddUsersProps {}
 export function AddUsers(props: AddUsersProps) {
   const [usersList, setUsersList] = useState([] as IUser[]);
 
-  const userAddHandler = (user: IUser) =>
-    setUsersList((prevList) => [user, ...prevList]);
+  const addUserHandler = (user: IUser) =>
+    setUsersList((prevUsersList) => [user, ...prevUsersList]);
 
   return (
     <div className={style['app-wrapper']}>
-      <AddUser onAddUser={userAddHandler} />
+      <AddUser onAddUser={addUserHandler} />
       <UsersList users={usersList} />
     </div>
   );

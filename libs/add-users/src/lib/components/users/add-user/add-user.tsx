@@ -1,4 +1,3 @@
-import { stringify } from 'querystring';
 import React, { useState } from 'react';
 import { IUser } from '../../../models/IUser';
 import Button from '../../ui/button/button/button';
@@ -32,12 +31,13 @@ export function AddUser(props: AddUserProps) {
       return;
     }
 
-    const payload: IUser = {
+    const newUser: IUser = {
       username: enteredUsername,
       age: Number(enteredAge),
+      id: Math.random().toString(),
     };
 
-    props.onAddUser(payload);
+    props.onAddUser(newUser);
 
     clearForm();
   };
