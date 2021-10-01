@@ -1,6 +1,28 @@
 {
   "version": 2,
   "projects": {
+    "add-users": {
+      "root": "libs/add-users",
+      "sourceRoot": "libs/add-users/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/add-users/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/add-users"],
+          "options": {
+            "jestConfig": "libs/add-users/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "complete-guide": {
       "root": "apps/complete-guide",
       "sourceRoot": "apps/complete-guide/src",
@@ -123,6 +145,106 @@
           "options": {
             "jestConfig": "libs/react-training/jest.config.js",
             "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "users": {
+      "root": "apps/users",
+      "sourceRoot": "apps/users/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/users",
+            "index": "apps/users/src/index.html",
+            "main": "apps/users/src/main.tsx",
+            "polyfills": "apps/users/src/polyfills.ts",
+            "tsConfig": "apps/users/tsconfig.app.json",
+            "assets": ["apps/users/src/favicon.ico", "apps/users/src/assets"],
+            "styles": ["apps/users/src/styles.scss"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/users/src/environments/environment.ts",
+                  "with": "apps/users/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "users:build",
+            "hmr": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "users:build:production",
+              "hmr": false
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/users/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/users"],
+          "options": {
+            "jestConfig": "apps/users/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "users-e2e": {
+      "root": "apps/users-e2e",
+      "sourceRoot": "apps/users-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/users-e2e/cypress.json",
+            "devServerTarget": "users:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "users:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/users-e2e/**/*.{js,ts}"]
           }
         }
       }

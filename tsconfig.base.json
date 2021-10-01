@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@react-nx/add-users": ["libs/add-users/src/index.ts"],
       "@react-nx/react-training": ["libs/react-training/src/index.ts"]
     }
   },

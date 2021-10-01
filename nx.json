@@ -27,6 +27,9 @@
     ]
   },
   "projects": {
+    "add-users": {
+      "tags": []
+    },
     "complete-guide": {
       "tags": []
     },
@@ -36,6 +39,13 @@
     },
     "react-training": {
       "tags": []
+    },
+    "users": {
+      "tags": []
+    },
+    "users-e2e": {
+      "tags": [],
+      "implicitDependencies": ["users"]
     }
   }
 }
