@@ -65,7 +65,9 @@ export function AddUser(props: AddUserProps) {
     // setEnteredUsername('');
     // setEnteredAge('');
 
-    // rarelly do that, but in this case is ok...
+    /** uncontrolled component because of ref attr, not controlled by react
+     * rarelly do that, but in this case is ok...
+     */
     if (nameInputRef.current) {
       nameInputRef.current.value = '';
     }
@@ -94,6 +96,7 @@ export function AddUser(props: AddUserProps) {
           <input id="username" type="text" ref={nameInputRef} />
 
           <label htmlFor="age">Age (Years)</label>
+          {/* uncontrolled component because of ref attr, not controlled by react */}
           <input id="age" type="number" ref={ageInputRef} />
 
           <Button type="submit" onClick={addUserHandler}>
