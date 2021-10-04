@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, RefObject } from 'react';
 import { IModal } from '../../../models/IModal';
 import { IUser } from '../../../models/IUser';
 import Button from '../../ui/button/button/button';
@@ -12,21 +12,30 @@ export interface AddUserProps {
 }
 
 export function AddUser(props: AddUserProps) {
-  const [enteredUsername, setEnteredUsername] = useState('');
-  const [enteredAge, setEnteredAge] = useState('');
+  const nameInputRef = React.useRef<HTMLInputElement>(null);
+  const ageInputRef = React.useRef<HTMLInputElement>(null);
+
+  // const [enteredUsername, setEnteredUsername] = useState('');
+  // const [enteredAge, setEnteredAge] = useState('');
   const [error, setError] = useState({} as IModal);
 
-  const usernameChangeHandler = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => setEnteredUsername(event.target.value);
+  // const usernameChangeHandler = (
+  //   event: React.ChangeEvent<HTMLInputElement>
+  // ): void => setEnteredUsername(event.target.value);
 
-  const ageChangeHandler = (event: React.ChangeEvent<HTMLInputElement>): void =>
-    setEnteredAge(event.target.value);
+  // const ageChangeHandler = (event: React.ChangeEvent<HTMLInputElement>): void =>
+  // setEnteredAge(event.target.value);
 
   const addUserHandler = (event: React.FormEvent<EventTarget>): void => {
     event.preventDefault();
 
-    if (enteredUsername.trim().length === 0 || enteredAge.trim().length === 0) {
+    const enteredName = nameInputRef.current?.value;
+    const enteredUserAge = ageInputRef.current?.value;
+
+    if (
+      enteredName?.trim().length === 0 ||
+      enteredUserAge?.trim().length === 0
+    ) {
       setError({
         title: 'Invalid input',
         message: 'Please enter valid name and age (non-empty values).',
@@ -34,7 +43,7 @@ export function AddUser(props: AddUserProps) {
       return;
     }
 
-    if (Number(enteredAge) < 1) {
+    if (Number(enteredUserAge) < 1) {
       setError({
         title: 'Invalid age',
         message: 'Please enter a valid age (> 0).',
@@ -43,19 +52,26 @@ export function AddUser(props: AddUserProps) {
     }
 
     const newUser: IUser = {
-      username: enteredUsername,
-      age: Number(enteredAge),
+      username: String(enteredName),
+      age: Number(enteredUserAge),
       id: Math.random().toString(),
     };
 
     props.onAddUser(newUser);
-
     clearForm();
   };
 
   const clearForm = (): void => {
-    setEnteredUsername('');
-    setEnteredAge('');
+    // setEnteredUsername('');
+    // setEnteredAge('');
+
+    // rarelly do that, but in this case is ok...
+    if (nameInputRef.current) {
+      nameInputRef.current.value = '';
+    }
+    if (ageInputRef.current) {
+      ageInputRef.current.value = '';
+    }
   };
 
   const errorConfirmHandler = () => {
@@ -75,20 +91,10 @@ export function AddUser(props: AddUserProps) {
       <Card className={style.input}>
         <form onSubmit={addUserHandler}>
           <label htmlFor="username">Username</label>
-          <input
-            id="username"
-            type="text"
-            onChange={usernameChangeHandler}
-            value={enteredUsername}
-          />
+          <input id="username" type="text" ref={nameInputRef} />
 
           <label htmlFor="age">Age (Years)</label>
-          <input
-            id="age"
-            type="number"
-            onChange={ageChangeHandler}
-            value={enteredAge}
-          />
+          <input id="age" type="number" ref={ageInputRef} />
 
           <Button type="submit" onClick={addUserHandler}>
             Add User
