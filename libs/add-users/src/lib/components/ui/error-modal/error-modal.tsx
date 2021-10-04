@@ -1,7 +1,7 @@
+import ReactDOM from 'react-dom';
 import { IModal } from '../../../models/IModal';
-import Button from '../button/button/button';
-import Card from '../card/card';
-import style from './error-modal.module.scss';
+import Backdrop from '../backdrop/backdrop';
+import ModalOverlay from '../modal-overlay/modal-overlay';
 
 /* eslint-disable-next-line */
 export interface ErrorModalProps extends IModal {
@@ -13,18 +13,14 @@ export interface ErrorModalProps extends IModal {
 export function ErrorModal({ title, message, onConfirm }: ErrorModalProps) {
   return (
     <>
-      <div className={style.backdrop} onClick={onConfirm}></div>
-      <Card className={style.modal}>
-        <header className={style.header}>
-          <h2>{title}</h2>
-        </header>
-        <div className={style.content}>
-          <p>{message}</p>
-        </div>
-        <footer className={style.actions}>
-          <Button onClick={onConfirm}>Okay</Button>
-        </footer>
-      </Card>
+      {ReactDOM.createPortal(
+        <Backdrop onConfirm={onConfirm} />,
+        document.getElementById('overlay-root') as HTMLElement
+      )}
+      {ReactDOM.createPortal(
+        <ModalOverlay title={title} message={message} onConfirm={onConfirm} />,
+        document.getElementById('modal-root') as HTMLElement
+      )}
     </>
   );
 }

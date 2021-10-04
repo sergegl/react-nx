@@ -65,7 +65,11 @@ export function AddUser(props: AddUserProps) {
   return (
     <>
       {Object.keys(error)?.length > 0 && (
-        <ErrorModal title={error.title} message={error.message} onConfirm={errorConfirmHandler} />
+        <ErrorModal
+          title={error.title}
+          message={error.message}
+          onConfirm={errorConfirmHandler}
+        />
       )}
 
       <Card className={style.input}>
