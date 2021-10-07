@@ -127,6 +127,131 @@
         }
       }
     },
+    "food-order-app": {
+      "root": "apps/food-order-app",
+      "sourceRoot": "apps/food-order-app/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/food-order-app",
+            "index": "apps/food-order-app/src/index.html",
+            "main": "apps/food-order-app/src/main.tsx",
+            "polyfills": "apps/food-order-app/src/polyfills.ts",
+            "tsConfig": "apps/food-order-app/tsconfig.app.json",
+            "assets": [
+              "apps/food-order-app/src/favicon.ico",
+              "apps/food-order-app/src/assets"
+            ],
+            "styles": ["apps/food-order-app/src/styles.scss"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/food-order-app/src/environments/environment.ts",
+                  "with": "apps/food-order-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "food-order-app:build",
+            "hmr": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "food-order-app:build:production",
+              "hmr": false
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/food-order-app/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/food-order-app"],
+          "options": {
+            "jestConfig": "apps/food-order-app/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "food-order-app-e2e": {
+      "root": "apps/food-order-app-e2e",
+      "sourceRoot": "apps/food-order-app-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/food-order-app-e2e/cypress.json",
+            "devServerTarget": "food-order-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "food-order-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/food-order-app-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "food-order-lib": {
+      "root": "libs/food-order-lib",
+      "sourceRoot": "libs/food-order-lib/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/food-order-lib/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/food-order-lib"],
+          "options": {
+            "jestConfig": "libs/food-order-lib/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "react-training": {
       "root": "libs/react-training",
       "sourceRoot": "libs/react-training/src",

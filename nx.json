@@ -37,6 +37,16 @@
       "tags": [],
       "implicitDependencies": ["complete-guide"]
     },
+    "food-order-app": {
+      "tags": []
+    },
+    "food-order-app-e2e": {
+      "tags": [],
+      "implicitDependencies": ["food-order-app"]
+    },
+    "food-order-lib": {
+      "tags": []
+    },
     "react-training": {
       "tags": []
     },

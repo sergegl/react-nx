@@ -6,7 +6,8 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "users-app": "npx nx run users:serve"
+    "users-app": "npx nx run users:serve",
+    "order-app": "npx nx run food-order-app:serve"
   },
   "private": true,
   "devDependencies": {
