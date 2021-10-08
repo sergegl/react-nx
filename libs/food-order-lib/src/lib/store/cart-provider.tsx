@@ -44,13 +44,13 @@ export function CartProvider(props: CartProviderProps) {
     defaultCartState
   );
 
-  const addItemToCartHandler = (item: IMeal): void => {
+  const addItemToCartHandler = (item: IMeal) => {
     dispatchCartAction({
       type: 'ADD',
       item: item,
     });
   };
-  const removeItemFromCartHandler = (item: IMeal): void => {
+  const removeItemFromCartHandler = (item: IMeal) => {
     dispatchCartAction({
       type: 'REMOVE',
       item: item,
