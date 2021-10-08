@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import CartContext from '../../../store/cart-context';
 import { CartIcon } from '../../cart/cart-icon/cart-icon';
 import classes from './header-cart-button.module.scss';
@@ -9,14 +9,41 @@ export interface HeaderCartButtonProps {
 }
 
 export function HeaderCartButton(props: HeaderCartButtonProps) {
-  const cartCtx = useContext(CartContext);
+  const [btnIsHighlighted, setBtnIsHighlighted] = useState(false);
 
-  const numberOfCartItems = cartCtx.items.reduce((currNumber, item) => {
+  const cartCtx = useContext(CartContext);
+  /**
+   * object destructioning
+   * then contexct triggers re rerended, we pick up 'items' as a changed property
+   * and use it as effect's dependancy
+   */
+  const { items } = cartCtx;
+
+  const numberOfCartItems = items.reduce((currNumber, item) => {
     return currNumber + Number(item.amount);
   }, 0);
 
+  const btnClasses = `${classes.button} ${
+    btnIsHighlighted ? classes.bump : ''
+  }`;
+
+  useEffect(() => {
+    if (items.length === 0) {
+      return;
+    }
+    setBtnIsHighlighted(true);
+
+    const timer = setTimeout(() => {
+      setBtnIsHighlighted(false);
+    }, 300);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [items]);
+
   return (
-    <button className={classes.button} onClick={props.onClick}>
+    <button className={btnClasses} onClick={props.onClick}>
       <span className={classes.icon}>
         <CartIcon />
       </span>
