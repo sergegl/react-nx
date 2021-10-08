@@ -18,11 +18,12 @@ export function Cart(props: CartProps) {
   const hasItems = cartCtx.items.length > 0;
 
   const cartItemAddHandler = (item: IMeal) => {
-    console.log(item);
+    const tempItem: IMeal = { ...item, amount: 1 };
+    cartCtx.addItem && cartCtx.addItem(tempItem);
   };
 
-  const cartItemRemoveHandler = (id: number) => {
-    console.log(id);
+  const cartItemRemoveHandler = (id: string) => {
+    cartCtx.removeItem && cartCtx.removeItem(id);
   };
 
   /**
@@ -35,7 +36,7 @@ export function Cart(props: CartProps) {
           key={item.id}
           item={item}
           onAdd={cartItemAddHandler.bind(null, item)}
-          onRemove={cartItemRemoveHandler.bind(null, Number(item.id))}
+          onRemove={cartItemRemoveHandler.bind(null, item.id)}
         />
       ))}
     </ul>

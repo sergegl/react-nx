@@ -19,9 +19,30 @@ const defaultCartState: ICart = {
 const cartReducer = (state: ICart, action: ICartAction) => {
   switch (action.type) {
     case 'ADD': {
-      const updatedItems = state.items.concat(action.item);
       const updatedTotalAmount =
         state.totalAmount + action.item.price * action.item.amount;
+
+      const existingCartItemIndex = state.items.findIndex(
+        (item) => item.id === action.item.id
+      );
+
+      const existingCartItem = state.items[existingCartItemIndex];
+
+      let updatedItems: IMeal[];
+
+      if (existingCartItem) {
+        // updating existing
+
+        const updatedItem = {
+          ...existingCartItem,
+          amount: existingCartItem.amount + action.item.amount,
+        };
+        updatedItems = [...state.items];
+        updatedItems[existingCartItemIndex] = updatedItem;
+      } else {
+        // creating new
+        updatedItems = state.items.concat(action.item);
+      }
 
       return {
         items: updatedItems,
@@ -30,7 +51,31 @@ const cartReducer = (state: ICart, action: ICartAction) => {
     }
 
     case 'REMOVE': {
-      return state;
+      const existingCartItemIndex = state.items.findIndex(
+        (item) => item.id === action.id
+      );
+
+      const existingCartItem = state.items[existingCartItemIndex];
+      const updatedTotalAmount = state.totalAmount - existingCartItem.price;
+
+      let updatedItems: IMeal[];
+
+      if (existingCartItem.amount === 1) {
+        updatedItems = state.items.filter((item) => item.id !== action.id);
+      } else {
+        const updateItem: IMeal = {
+          ...existingCartItem,
+          amount: existingCartItem.amount - 1,
+        };
+
+        updatedItems = [...state.items];
+        updatedItems[existingCartItemIndex] = updateItem;
+      }
+
+      return {
+        items: updatedItems,
+        totalAmount: updatedTotalAmount,
+      };
     }
 
     default:
@@ -50,16 +95,16 @@ export function CartProvider(props: CartProviderProps) {
       item: item,
     });
   };
-  const removeItemFromCartHandler = (item: IMeal) => {
+  const removeItemFromCartHandler = (id: string) => {
     dispatchCartAction({
       type: 'REMOVE',
-      item: item,
+      id: id,
     });
   };
 
   const cartContext: ICart = {
-    items: cartState?.items,
-    totalAmount: cartState?.totalAmount,
+    items: cartState.items,
+    totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,
   };
