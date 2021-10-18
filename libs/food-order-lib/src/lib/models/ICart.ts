@@ -5,4 +5,5 @@ export interface ICart {
   totalAmount: number;
   addItem?: (item: IMeal) => void;
   removeItem?: (id: string) => void;
+  clearCart?: () => void;
 }

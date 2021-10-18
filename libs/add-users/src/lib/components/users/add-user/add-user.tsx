@@ -15,16 +15,7 @@ export function AddUser(props: AddUserProps) {
   const nameInputRef = React.useRef<HTMLInputElement>(null);
   const ageInputRef = React.useRef<HTMLInputElement>(null);
 
-  // const [enteredUsername, setEnteredUsername] = useState('');
-  // const [enteredAge, setEnteredAge] = useState('');
   const [error, setError] = useState({} as IModal);
-
-  // const usernameChangeHandler = (
-  //   event: React.ChangeEvent<HTMLInputElement>
-  // ): void => setEnteredUsername(event.target.value);
-
-  // const ageChangeHandler = (event: React.ChangeEvent<HTMLInputElement>): void =>
-  // setEnteredAge(event.target.value);
 
   const addUserHandler = (event: React.FormEvent<EventTarget>): void => {
     event.preventDefault();
@@ -62,9 +53,6 @@ export function AddUser(props: AddUserProps) {
   };
 
   const clearForm = (): void => {
-    // setEnteredUsername('');
-    // setEnteredAge('');
-
     /** uncontrolled component because of ref attr, not controlled by react
      * rarelly do that, but in this case is ok...
      */

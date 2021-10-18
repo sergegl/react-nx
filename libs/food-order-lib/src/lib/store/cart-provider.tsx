@@ -72,9 +72,13 @@ const cartReducer = (state: ICart, action: ICartAction) => {
         updatedItems[existingCartItemIndex] = updateItem;
       }
 
+      return defaultCartState;
+    }
+
+    case 'CLEAR': {
       return {
-        items: updatedItems,
-        totalAmount: updatedTotalAmount,
+        items: [],
+        totalAmount: 0,
       };
     }
 
@@ -102,11 +106,16 @@ export function CartProvider(props: CartProviderProps) {
     });
   };
 
+  const clearCartHandler = () => {
+    dispatchCartAction({ type: 'CLEAR' });
+  };
+
   const cartContext: ICart = {
     items: cartState.items,
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,
+    clearCart: clearCartHandler,
   };
 
   return (
